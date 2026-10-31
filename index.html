@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harry Huang — small builds &amp; AI workflows</title>
+<meta name="description" content="Five small, complete projects: a DSE practice deck, a live AI speaking examiner, a narrated algorithms course, a macOS menu-bar app and a tutoring site. Built in Hong Kong.">
+<meta property="og:title" content="Harry Huang — small builds & AI workflows">
+<meta property="og:description" content="Eight projects that run, each with a URL or a repo — not a mockup.">
+<meta property="og:image" content="shots/drill.png">
+<meta property="og:type" content="website">
+<style>
+  :root{
+    --bg:#08080b; --panel:#0f0f14; --line:#23232c; --fg:#ececf1;
+    --muted:#9a9aa6; --dim:#6c6c78; --accent:#f0b64b;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family:var(--sans); font-size:17px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 32px}
+
+  /* nav */
+  .nav{
+    position:fixed; inset:0 0 auto 0; z-index:50;
+    background:rgba(8,8,11,.72); backdrop-filter:blur(18px);
+    border-bottom:1px solid transparent; transition:background .3s,border-color .3s;
+  }
+  .nav.solid{background:rgba(8,8,11,.94); border-bottom-color:var(--line)}
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:60px}
+  .brand{font-family:var(--mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase}
+  .brand span{color:var(--accent)}
+  .nav-links{display:flex; gap:28px; font-size:14px; color:var(--muted)}
+  .nav-links a{text-decoration:none; transition:color .2s}
+  .nav-links a:hover{color:var(--fg)}
+
+  /* hero */
+  header{
+    min-height:calc(100vh - 60px); display:flex; align-items:center;
+    padding:120px 0 80px;
+    background:radial-gradient(900px 420px at 20% -10%,rgba(240,182,75,.08),transparent 70%);
+  }
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 26px;
+  }
+  h1{
+    font-family:var(--serif); font-weight:400; letter-spacing:-.02em;
+    font-size:clamp(42px,7vw,82px); line-height:1.04; margin:0 0 28px; max-width:15ch;
+  }
+  h1 em{font-style:italic; color:var(--accent)}
+  .lede{font-size:clamp(17px,2vw,20px); color:var(--muted); max-width:56ch; margin:0 0 44px}
+  .lede strong{color:var(--fg); font-weight:500}
+
+  .stats{display:flex; flex-wrap:wrap; gap:44px; margin:0 0 48px; padding:0; list-style:none}
+  .stats li{display:flex; flex-direction:column; gap:2px}
+  .stats b{font-family:var(--mono); font-size:26px; font-weight:500; letter-spacing:-.02em}
+  .stats span{font-size:12px; color:var(--dim); letter-spacing:.06em; text-transform:uppercase}
+
+  .cta{display:flex; flex-wrap:wrap; gap:12px}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:13px 22px;
+    border-radius:999px; border:1px solid var(--line); text-decoration:none;
+    font-size:14px; transition:transform .25s var(--ease),border-color .25s,background .25s;
+  }
+  .btn:hover{transform:translateY(-2px); border-color:#3a3a46}
+  .btn.primary{background:var(--fg); color:#08080b; border-color:var(--fg); font-weight:600}
+  .btn.primary:hover{background:#fff}
+
+  /* sections */
+  section{padding:96px 0}
+  .sec-head{display:flex; align-items:baseline; justify-content:space-between; gap:24px; margin-bottom:52px}
+  h2{font-family:var(--serif); font-weight:400; font-size:clamp(30px,4vw,44px); letter-spacing:-.01em; margin:0}
+  .sec-head p{margin:0; color:var(--dim); font-size:14px; font-family:var(--mono)}
+
+  /* project */
+  .project{
+    display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center;
+    padding:56px 0; border-top:1px solid var(--line);
+  }
+  .project:first-of-type{border-top:none; padding-top:0}
+  .shot{display:block; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:var(--panel)}
+  .shot img{display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; object-position:top center; transition:transform .8s var(--ease)}
+  .shot:hover img{transform:scale(1.02)}
+  .kicker{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); margin-bottom:14px}
+  h3{font-size:27px; line-height:1.2; margin:0 0 14px; letter-spacing:-.01em}
+  .project p{margin:0 0 20px; color:var(--muted); font-size:16px}
+  .facts{list-style:none; margin:0 0 22px; padding:0; display:grid; gap:7px}
+  .facts li{position:relative; padding-left:18px; font-size:14px; color:#c3c3cc}
+  .facts li::before{content:""; position:absolute; left:0; top:.62em; width:6px; height:1px; background:var(--accent)}
+  .tags{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:22px}
+  .tags span{font-family:var(--mono); font-size:11px; color:var(--dim); border:1px solid var(--line); border-radius:999px; padding:4px 10px}
+  .link{font-size:14px; text-decoration:none; border-bottom:1px solid #3a3a46; padding-bottom:2px; transition:border-color .2s,color .2s}
+  .link:hover{color:var(--accent); border-color:var(--accent)}
+  .link[aria-disabled="true"]{color:var(--dim); border-color:transparent; cursor:default}
+  .link[aria-disabled="true"]:hover{color:var(--dim)}
+
+  /* more */
+  .more{display:grid; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden}
+  .more article{background:var(--panel); padding:26px 28px; display:grid; grid-template-columns:240px 1fr; gap:24px; align-items:baseline}
+  .more h4{margin:0; font-size:17px; font-weight:600; letter-spacing:-.005em}
+  .more p{margin:0; color:var(--muted); font-size:15px}
+  .more .ev{display:block; margin-top:6px; font-family:var(--mono); font-size:12px; color:var(--dim)}
+
+  /* how */
+  .how{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden}
+  .how div{background:var(--panel); padding:30px 28px}
+  .how h4{margin:0 0 8px; font-size:16px; font-weight:600}
+  .how p{margin:0; color:var(--muted); font-size:15px}
+
+  /* footer */
+  footer{padding:80px 0 60px; border-top:1px solid var(--line); margin-top:40px}
+  .foot{display:flex; flex-wrap:wrap; justify-content:space-between; gap:32px; align-items:flex-start}
+  footer h2{font-size:28px; margin-bottom:10px}
+  footer p{margin:0; color:var(--muted); font-size:15px; max-width:46ch}
+  .fineprint{margin-top:44px; color:var(--dim); font-size:12.5px; line-height:1.7; max-width:70ch}
+
+  /* motion */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .reveal.visible{opacity:1; transform:none}
+  .stagger>*{opacity:0; transform:translateY(18px); transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .stagger.visible>*{opacity:1; transform:none}
+  .stagger.visible>*:nth-child(1){transition-delay:.05s}
+  .stagger.visible>*:nth-child(2){transition-delay:.12s}
+  .stagger.visible>*:nth-child(3){transition-delay:.19s}
+  .stagger.visible>*:nth-child(4){transition-delay:.26s}
+  .stagger.visible>*:nth-child(5){transition-delay:.33s}
+
+  a:focus-visible,.btn:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+
+  @media (max-width:900px){
+    .project{grid-template-columns:1fr; gap:28px; padding:44px 0}
+    .more article{grid-template-columns:1fr; gap:6px}
+    .how{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    body{font-size:16px}
+    .wrap{padding:0 20px}
+    header{padding:120px 0 64px}
+    section{padding:64px 0}
+    .nav-links{gap:18px; font-size:13px}
+    .nav-links a:nth-child(2),.nav-links a:nth-child(3){display:none}
+    .stats{gap:28px}
+    .stats b{font-size:22px}
+    .sec-head{flex-direction:column; gap:8px; margin-bottom:36px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal,.stagger>*{opacity:1; transform:none; transition:none}
+    .shot:hover img,.btn:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <div class="brand">Harry Huang <span>/</span> HK</div>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#more">More</a>
+      <a href="#how">How I work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow reveal">Hong Kong · small builds &amp; AI workflows</p>
+    <h1 class="reveal">I build small, <em>complete</em> tools.</h1>
+    <p class="lede reveal">Eight projects that actually run: a DSE practice deck, a live AI speaking examiner, a narrated algorithms course, a macOS menu-bar app, a tutoring site, an agent verification plugin, a language-learning PWA and a personal site. <strong>Each has a URL or a repo — not a mockup.</strong></p>
+    <ul class="stats reveal">
+      <li><b>8</b><span>projects shown</span></li>
+      <li><b>7</b><span>live or public</span></li>
+      <li><b>24/24</b><span>browser checks on the drill deck</span></li>
+    </ul>
+    <div class="cta reveal">
+      <a class="btn primary" href="#work">See the work</a>
+      <a class="btn" href="https://contra.com/harry_huang_okz67sxh" target="_blank" rel="noopener">Contra profile</a>
+    </div>
+  </div>
+</header>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Selected work</h2>
+      <p>08 projects · all built by me</p>
+    </div>
+
+    <article class="project reveal">
+      <a class="shot" href="https://onedse-drill.pages.dev/" target="_blank" rel="noopener">
+        <img src="shots/drill.png" alt="DSE Drill Deck — home screen with a practice library and a daily streak strip" width="1440" height="900" loading="lazy">
+      </a>
+      <div>
+        <p class="kicker">01 · Education web app</p>
+        <h3>DSE Drill Deck</h3>
+        <p>A practice deck for HKDSE English. Timed runs, per-question error notes, and a wrong-answer book that keeps a question until you get it right — offline too.</p>
+        <ul class="facts">
+          <li>24/24 headless-browser checks on the live site, including a full answer → submit → review journey</li>
+          <li>Lighthouse mobile: accessibility 100, SEO 100</li>
+          <li>Only self-authored papers are public — past papers are not republished</li>
+        </ul>
+        <div class="tags"><span>static</span><span>service worker</span><span>a11y</span></div>
+        <a class="link" href="https://onedse-drill.pages.dev/" target="_blank" rel="noopener">onedse-drill.pages.dev →</a>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <a class="shot" href="https://wewrites.onezion.top/" target="_blank" rel="noopener">
+        <img src="shots/wewrites.png" alt="WeWrites — DSE tutoring brand site, dark landing page with class photography" width="1440" height="900" loading="lazy">
+      </a>
+      <div>
+        <p class="kicker">02 · Brand site</p>
+        <h3>WeWrites</h3>
+        <p>Site and content system for a DSE tutoring team: bilingual copy, class photography, teacher and course pages, and a deployment path that a non-developer can update.</p>
+        <ul class="facts">
+          <li>Live on its own domain, updated by the team without a developer</li>
+          <li>Dark editorial layout, built to survive real class photos rather than placeholders</li>
+        </ul>
+        <div class="tags"><span>static site</span><span>custom domain</span><span>content</span></div>
+        <a class="link" href="https://wewrites.onezion.top/" target="_blank" rel="noopener">wewrites.onezion.top →</a>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <a class="shot" href="https://p4.onezion.top/" target="_blank" rel="noopener">
+        <img src="shots/p4.png" alt="DSE English Paper 4 — access code screen for the live speaking practice app" width="1000" height="625" loading="lazy">
+      </a>
+      <div>
+        <p class="kicker">03 · Real-time voice</p>
+        <h3>DSE Paper 4 Live</h3>
+        <p>A speaking practice room for HKDSE English Paper 4. The examiner is pre-recorded and disciplined; candidate B is a live voice model; the report quotes what you actually said.</p>
+        <ul class="facts">
+          <li>120-second turn cap with interruption handling — practice rules, not exam rules</li>
+          <li>Server-side relay, so the browser needs no VPN</li>
+          <li>Reports are anchored to your own sentences, not a generic score</li>
+        </ul>
+        <div class="tags"><span>WebSocket</span><span>live audio</span><span>Node</span></div>
+        <a class="link" href="https://p4.onezion.top/" target="_blank" rel="noopener">p4.onezion.top → <span style="color:var(--dim)">(access code)</span></a>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <a class="shot" href="https://onezion12344.github.io/comp2119-lectures/" target="_blank" rel="noopener">
+        <img src="shots/comp2119.png" alt="Introduction to Algorithms — narrated lecture index with 11 lectures and 596 slides" width="1440" height="900" loading="lazy">
+      </a>
+      <div>
+        <p class="kicker">04 · Teaching product</p>
+        <h3>COMP2119 Lectures</h3>
+        <p>Narrated, slide-faithful lectures for an algorithms course. Every element appears at the moment the narration explains it and stays on screen — hands-free autoplay, or step through it yourself.</p>
+        <ul class="facts">
+          <li>11 lectures · 596 slides · 5.8 hours of narration</li>
+          <li>6 click-through step tools (recursion trees, sorting, graph traversal)</li>
+          <li>Contrast lifted to WCAG AA in both themes</li>
+        </ul>
+        <div class="tags"><span>HTML/CSS/JS</span><span>audio</span><span>motion</span></div>
+        <a class="link" href="https://onezion12344.github.io/comp2119-lectures/" target="_blank" rel="noopener">Live on GitHub Pages →</a>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <a class="shot" href="https://github.com/onezion12344/mac-closed-awake" target="_blank" rel="noopener">
+        <img src="shots/mac.png" alt="MacClosedAwake — landing page for a macOS menu-bar app that keeps the Mac awake with the lid closed" width="1280" height="900" loading="lazy">
+      </a>
+      <div>
+        <p class="kicker">05 · macOS utility</p>
+        <h3>MacClosedAwake</h3>
+        <p>A menu-bar app that keeps a Mac awake with the lid closed, so a long build or a deploy doesn't die when you walk away. Timer, forever mode, memory panel, quiet cleanup.</p>
+        <ul class="facts">
+          <li>51 commits, tagged through v1.7.0</li>
+          <li>Public repo with a landing page and a mascot, not just source</li>
+        </ul>
+        <div class="tags"><span>Swift</span><span>menu bar</span><span>power management</span></div>
+        <a class="link" href="https://github.com/onezion12344/mac-closed-awake" target="_blank" rel="noopener">github.com/onezion12344/mac-closed-awake →</a>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <a class="shot" href="https://onezion12344.github.io/double-check-agent/" target="_blank" rel="noopener">
+        <img src="shots/double-check.png" alt="Double-Check — dark landing page for an agent verification plugin" width="1440" height="900" loading="lazy">
+      </a>
+      <div>
+        <p class="kicker">06 · Agent tooling</p>
+        <h3>Double-Check</h3>
+        <p>A verification plugin for AI agents. It doesn't try to make the model smarter — it forces fact, logic and tool-use checks to happen outside the model, through hooks the agent can't skip.</p>
+        <ul class="facts">
+          <li>Public repo: 31 commits, 5,991 lines (measured 2026-10-31)</li>
+          <li>Landing page published, with a live demo</li>
+          <li>Enforcement is external — a skipped check shows up as a failure, not silence</li>
+        </ul>
+        <div class="tags"><span>agent hooks</span><span>verification</span><span>Python</span></div>
+        <a class="link" href="https://onezion12344.github.io/double-check-agent/" target="_blank" rel="noopener">onezion12344.github.io/double-check-agent →</a>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <a class="shot" href="#more">
+        <img src="shots/shanghainese.png" alt="Shanghainese course PWA — lesson picker screen with one live course and four unopened ones" width="1440" height="900" loading="lazy">
+      </a>
+      <div>
+        <p class="kicker">07 · Language learning PWA</p>
+        <h3>Shanghainese Course</h3>
+        <p>A Duolingo-style course engine for Shanghainese, built as an installable PWA. The content pipeline is the point: a lesson only ships from sourced material, and the engine refuses to invent answers.</p>
+        <ul class="facts">
+          <li>35,501 lines · 13 commits · 11 test files (measured 2026-10-31)</li>
+          <li>Same engine across five courses — four are deliberately shown as unopened</li>
+          <li>Local build; not published, because the content isn't cleared for public yet</li>
+        </ul>
+        <div class="tags"><span>PWA</span><span>content pipeline</span><span>offline</span></div>
+        <a class="link" href="#more" style="color:var(--dim)">local build · available on request →</a>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <a class="shot" href="https://onezion12344.github.io/" target="_blank" rel="noopener">
+        <img src="shots/github-pages.png" alt="Builder profile site on GitHub Pages — bilingual hero with project counts" width="1440" height="900" loading="lazy">
+      </a>
+      <div>
+        <p class="kicker">08 · Personal site</p>
+        <h3>Builder Profile</h3>
+        <p>A bilingual one-page site that presents the work itself: delivered projects, public repos, and the way I think about building. Written to be read in one scroll by someone who doesn't know the field.</p>
+        <ul class="facts">
+          <li>Live at onezion12344.github.io · 30 commits, 8,510 lines (measured 2026-10-31)</li>
+          <li>EN / 中 switch, no framework, no build step</li>
+        </ul>
+        <div class="tags"><span>static</span><span>bilingual</span><span>one-page</span></div>
+        <a class="link" href="https://onezion12344.github.io/" target="_blank" rel="noopener">onezion12344.github.io →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="more">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>More work</h2>
+      <p>private or local</p>
+    </div>
+    <div class="more reveal">
+      <article>
+        <h4>Personal finance importer</h4>
+        <p>WeChat Pay and Alipay exports into SQLite, de-duplicated, categorised, with monthly reports. Real statements, not sample rows.
+          <span class="ev">pytest · real WeChat Pay + Alipay exports</span></p>
+      </article>
+      <article>
+        <h4>Model gateway</h4>
+        <p>One loopback endpoint that speaks both the Anthropic and OpenAI protocols and routes by model prefix, so one CLI can use several vendors.
+          <span class="ev">13.7k lines · 16 test modules</span></p>
+      </article>
+      <article>
+        <h4>FrameFactory <span style="color:var(--dim);font-weight:400">(hackathon)</span></h4>
+        <p>Topic in, publishable explainer video out: script, voice, footage matching, composition, QC — with every decision written down and replayable.
+          <span class="ev">18 front-end tests · full-chain replay</span></p>
+      </article>
+      <article>
+        <h4>Shanghainese course</h4>
+        <p>A Duolingo-style installable PWA for a dialect that has almost no course material — with a content pipeline that flags what it cannot verify instead of inventing it.
+          <span class="ev">11 tests · PWA</span></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>How I work</h2>
+      <p>fixed scope · 2-week delivery</p>
+    </div>
+    <div class="how reveal">
+      <div>
+        <h4>Fixed scope and price, in writing</h4>
+        <p>We agree the deliverable and the date before anything is built. One revision inside scope; new work is quoted separately.</p>
+      </div>
+      <div>
+        <h4>One real sample to start</h4>
+        <p>Send one file, export or screenshot of the current task. Redacted is fine. No sample, no start.</p>
+      </div>
+      <div>
+        <h4>Your accounts stay yours</h4>
+        <p>Bring your own API key. Passwords, 2FA and mailbox access are never shared, and I don't operate anyone's financial account.</p>
+      </div>
+      <div>
+        <h4>Handover you can run</h4>
+        <p>README, a walkthrough, and the known limits written down. You keep the code, the keys and the data; client data is deleted after delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h2>Small enough to finish.</h2>
+        <p>Reply within 24 hours, 09:00–21:00 HKT. One project at a time, so the date I give you is the date you get.</p>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="https://contra.com/harry_huang_okz67sxh" target="_blank" rel="noopener">Message me on Contra</a>
+        <a class="btn" href="#work">Back to work</a>
+      </div>
+    </div>
+    <p class="fineprint">
+      Harry Huang · Hong Kong · AI &amp; Data Science, HKU.<br>
+      Everything above is a personal or self-run project, not client work, and no client results are claimed. Coursework, forks and vendored repositories are deliberately not listed. Not offered: production ML, finance or medical compliance, enterprise rebuilds, long-term SLAs, captcha or paywall bypass.
+    </p>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => {
+    nav.classList.toggle('solid', scrollY > 40);
+  }, { passive: true });
+
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
