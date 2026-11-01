@@ -3,12 +3,78 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Harry Huang — small builds &amp; AI workflows</title>
-<meta name="description" content="Five small, complete projects: a DSE practice deck, a live AI speaking examiner, a narrated algorithms course, a macOS menu-bar app and a tutoring site. Built in Hong Kong.">
-<meta property="og:title" content="Harry Huang — small builds & AI workflows">
-<meta property="og:description" content="Seven projects that run, each with a URL or a repo — not a mockup.">
-<meta property="og:image" content="shots/wewrites.png">
+<title>Harry Huang — Automation, Tools &amp; Dashboards, Hong Kong</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308080b'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='34' fill='%23f0b64b' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Harry Huang, Hong Kong. Spreadsheet and PDF automation, small internal tools, one-page dashboards — each build shipped with a live URL or a repo.">
+<link rel="canonical" href="https://onezion12344.github.io/portfolio/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Harry Huang">
+<meta name="theme-color" content="#08080b">
+<meta property="og:site_name" content="Harry Huang">
+<meta property="og:locale" content="en_HK">
+<meta property="og:title" content="Harry Huang — Automation, Tools &amp; Dashboards, Hong Kong">
+<meta property="og:description" content="Spreadsheet and PDF automation, small internal tools, one-page dashboards. Seven builds, each with a live URL or a repo.">
+<meta property="og:image" content="https://onezion12344.github.io/portfolio/shots/wewrites.png">
+<meta property="og:image:alt" content="WeWrites — dark editorial landing page built by Harry Huang">
+<meta property="og:url" content="https://onezion12344.github.io/portfolio/">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Harry Huang — Automation, Tools &amp; Dashboards, Hong Kong">
+<meta name="twitter:description" content="Spreadsheet and PDF automation, small internal tools, one-page dashboards. Seven builds, each with a live URL or a repo.">
+<meta name="twitter:image" content="https://onezion12344.github.io/portfolio/shots/wewrites.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://onezion12344.github.io/portfolio/#person",
+      "name": "Harry Huang",
+      "url": "https://onezion12344.github.io/portfolio/",
+      "jobTitle": "Builder of small automation and internal tools",
+      "address": { "@type": "PostalAddress", "addressLocality": "Hong Kong", "addressCountry": "HK" },
+      "sameAs": [
+        "https://github.com/onezion12344",
+        "https://contra.com/harry_huang_okz67sxh"
+      ],
+      "knowsAbout": [
+        "Spreadsheet and PDF automation",
+        "Small internal tools",
+        "One-page dashboards"
+      ],
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "The University of Hong Kong",
+        "url": "https://www.hku.hk/"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://onezion12344.github.io/portfolio/#website",
+      "url": "https://onezion12344.github.io/portfolio/",
+      "name": "Harry Huang — portfolio",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://onezion12344.github.io/portfolio/#person" }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://onezion12344.github.io/portfolio/#work",
+      "name": "Selected work — seven builds",
+      "numberOfItems": 7,
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "WeWrites", "url": "https://wewrites.onezion.top/" },
+        { "@type": "ListItem", "position": 2, "name": "DSE Paper 4 Live", "url": "https://p4.onezion.top/" },
+        { "@type": "ListItem", "position": 3, "name": "COMP2119 Lectures", "url": "https://onezion12344.github.io/comp2119-lectures/" },
+        { "@type": "ListItem", "position": 4, "name": "MacClosedAwake", "url": "https://onezion12344.github.io/mac-closed-awake/" },
+        { "@type": "ListItem", "position": 5, "name": "Double-Check", "url": "https://onezion12344.github.io/double-check-agent/" },
+        { "@type": "ListItem", "position": 6, "name": "Shanghainese Course", "url": "https://onezion12344.github.io/portfolio/#more" },
+        { "@type": "ListItem", "position": 7, "name": "Builder Profile", "url": "https://onezion12344.github.io/" }
+      ]
+    }
+  ]
+}
+</script>
 <style>
   :root{
     --bg:#08080b; --panel:#0f0f14; --line:#23232c; --fg:#ececf1;
@@ -136,6 +202,59 @@
 
   a:focus-visible,.btn:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
 
+  /* hero 3d layer */
+  header{position:relative; overflow:hidden; isolation:isolate}
+  #hero-canvas{
+    position:absolute; inset:0; width:100%; height:100%; z-index:0;
+    display:block; pointer-events:none;
+    -webkit-mask-image:radial-gradient(115% 105% at 74% 46%,#000 0%,#000 42%,rgba(0,0,0,.35) 72%,transparent 96%);
+    mask-image:radial-gradient(115% 105% at 74% 46%,#000 0%,#000 42%,rgba(0,0,0,.35) 72%,transparent 96%);
+    will-change:transform;
+  }
+  header .wrap{position:relative; z-index:1}
+  .scroll-cue{
+    position:absolute; left:32px; bottom:30px; z-index:1;
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--dim);
+  }
+  .scroll-cue::after{
+    content:""; width:1px; height:26px;
+    background:linear-gradient(var(--accent),transparent);
+  }
+  .scroll-cue span{animation:cue 3.6s var(--ease) infinite}
+  @keyframes cue{0%,100%{opacity:.45}50%{opacity:1}}
+
+  /* scroll progress */
+  .progress{
+    position:fixed; top:0; left:0; right:0; height:2px; z-index:60;
+    background:var(--accent); transform:scaleX(0); transform-origin:0 50%;
+    pointer-events:none;
+  }
+
+  /* project shot: tilt + pointer sheen, scroll parallax on the image */
+  .project .shot{
+    position:relative; transform-style:preserve-3d;
+    transition:transform .45s var(--ease), border-color .3s;
+    will-change:transform;
+    --mx:50%; --my:50%;
+  }
+  .project .shot.is-tilting{transition:transform .12s linear}
+  .project .shot::after{
+    content:""; position:absolute; inset:0; border-radius:inherit;
+    background:radial-gradient(220px 220px at var(--mx) var(--my),rgba(240,182,75,.16),transparent 68%);
+    opacity:0; transition:opacity .35s var(--ease); pointer-events:none;
+  }
+  .project .shot:hover::after{opacity:1}
+  .project .shot img{transform:translate3d(0,var(--py,0px),0) scale(1); transition:transform .3s cubic-bezier(.22,1,.36,1)}
+  .project .shot:hover img{transform:translate3d(0,var(--py,0px),0) scale(1.02); transition:transform .8s var(--ease)}
+
+  .proj-n{
+    margin-left:auto; font-family:var(--mono); font-size:11px;
+    letter-spacing:.1em; color:var(--dim); flex:none;
+  }
+  .kicker{display:flex; align-items:baseline; gap:12px}
+
   @media (max-width:900px){
     .project{grid-template-columns:1fr; gap:28px; padding:44px 0}
     .more article{grid-template-columns:1fr; gap:6px}
@@ -151,15 +270,23 @@
     .stats{gap:28px}
     .stats b{font-size:22px}
     .sec-head{flex-direction:column; gap:8px; margin-bottom:36px}
+    .scroll-cue{left:20px; bottom:18px; font-size:10px}
+    #hero-canvas{-webkit-mask-image:radial-gradient(140% 80% at 60% 30%,#000 0%,rgba(0,0,0,.5) 55%,transparent 92%); mask-image:radial-gradient(140% 80% at 60% 30%,#000 0%,rgba(0,0,0,.5) 55%,transparent 92%)}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .reveal,.stagger>*{opacity:1; transform:none; transition:none}
     .shot:hover img,.btn:hover{transform:none}
+    .project .shot,.project .shot img{transform:none; transition:none}
+    .project .shot::after{display:none}
+    .scroll-cue span{animation:none; opacity:.7}
+    .progress{transition:none}
   }
 </style>
 </head>
 <body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
 
 <nav class="nav" id="nav">
   <div class="wrap">
@@ -173,7 +300,8 @@
   </div>
 </nav>
 
-<header>
+<header id="hero">
+  <canvas id="hero-canvas" aria-hidden="true" role="presentation"></canvas>
   <div class="wrap">
     <p class="eyebrow reveal">Hong Kong · small builds &amp; AI workflows</p>
     <h1 class="reveal">I build small, <em>complete</em> tools.</h1>
@@ -188,6 +316,7 @@
       <a class="btn" href="https://contra.com/harry_huang_okz67sxh" target="_blank" rel="noopener">Contra profile</a>
     </div>
   </div>
+  <div class="scroll-cue" aria-hidden="true"><span>Scroll</span></div>
 </header>
 
 <section id="work">
@@ -391,8 +520,11 @@
       </div>
       <div class="cta">
         <a class="btn primary" href="https://contra.com/harry_huang_okz67sxh" target="_blank" rel="noopener">Message me on Contra</a>
+        <a class="btn" href="mailto:huangyang12344@gmail.com">huangyang12344@gmail.com</a>
+        <a class="btn" href="https://github.com/onezion12344" target="_blank" rel="noopener">github.com/onezion12344</a>
         <a class="btn" href="#work">Back to work</a>
       </div>
+      <p class="fineprint" lang="zh-Hant">做細活：表格與 PDF 自動化、內部小工具、一頁式看板。固定範圍、一次一單，24 小時內回覆（港時間 09:00–21:00）。</p>
     </div>
     <p class="fineprint">
       Harry Huang · Hong Kong · AI &amp; Data Science, HKU.<br>
@@ -415,6 +547,111 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
 
   document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+</script>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* scroll progress */
+  var bar = document.createElement('div');
+  bar.setAttribute('aria-hidden','true');
+  bar.style.cssText = 'position:fixed;top:0;left:0;height:2px;width:0;background:#f0b64b;z-index:60;opacity:.85;transition:width .08s linear';
+  document.body.appendChild(bar);
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - innerHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* hero 3D point lattice */
+  var cv = document.getElementById('hero-canvas');
+  if (cv && cv.getContext) {
+    var ctx = cv.getContext('2d');
+    var W = 1, H = 1, DPR = 1, pts = [], raf = null, visible = true;
+    var N = 620;
+    for (var i = 0; i < N; i++) {
+      var y = 1 - (i / (N - 1)) * 2;
+      var r = Math.sqrt(Math.max(0, 1 - y * y));
+      var th = i * 2.399963229728653;
+      pts.push({x: Math.cos(th) * r, y: y, z: Math.sin(th) * r, n: [(i * 7 + 11) % N, (i * 13 + 29) % N]});
+    }
+    function resize(){
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      var b = cv.getBoundingClientRect();
+      W = Math.max(1, Math.round(b.width)); H = Math.max(1, Math.round(b.height));
+      cv.width = W * DPR; cv.height = H * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+    var t = 0, px = 0, py = 0, tx = 0, ty = 0;
+    function draw(){
+      ctx.clearRect(0, 0, W, H);
+      t += 0.0016; px += (tx - px) * 0.06; py += (ty - py) * 0.06;
+      var cx = W * 0.72 + px * 6, cy = H * 0.46 + py * 6, sc = Math.min(W, H) * 0.42;
+      var ry = t, rx = Math.sin(t * 0.7) * 0.25;
+      var cy2 = Math.cos(ry), sy2 = Math.sin(ry), cx2 = Math.cos(rx), sx2 = Math.sin(rx);
+      var proj = new Array(N);
+      for (var i = 0; i < N; i++) {
+        var p = pts[i];
+        var x = p.x * cy2 - p.z * sy2, z = p.x * sy2 + p.z * cy2, yy = p.y;
+        var y2 = yy * cx2 - z * sx2, z2 = yy * sx2 + z * cx2;
+        var persp = 1 / (1.9 - z2 * 0.9);
+        proj[i] = {sx: cx + x * sc * persp, sy: cy + y2 * sc * persp, z: z2};
+      }
+      ctx.lineWidth = 1;
+      for (var a = 0; a < N; a++) {
+        var A = proj[a];
+        for (var k = 0; k < 2; k++) {
+          var B = proj[pts[a].n[k]], dep = (A.z + B.z) / 2;
+          if (dep < -0.1) continue;
+          ctx.strokeStyle = 'rgba(240,182,75,' + (0.03 + 0.10 * Math.max(0, dep)).toFixed(3) + ')';
+          ctx.beginPath(); ctx.moveTo(A.sx, A.sy); ctx.lineTo(B.sx, B.sy); ctx.stroke();
+        }
+      }
+      for (var q = 0; q < N; q++) {
+        var P = proj[q], d = Math.max(0, Math.min(1, (P.z + 1) / 2));
+        ctx.fillStyle = 'rgba(236,236,241,' + (0.05 + 0.5 * d * d).toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(P.sx, P.sy, 0.6 + 1.8 * d, 0, 6.2832); ctx.fill();
+      }
+    }
+    function loop(){ draw(); raf = requestAnimationFrame(loop); }
+    function start(){ if (raf === null && visible && !document.hidden) { if (reduce) { draw(); } else { raf = requestAnimationFrame(loop); } } }
+    function stop(){ if (raf !== null) { cancelAnimationFrame(raf); raf = null; } }
+    resize(); start();
+    addEventListener('resize', function(){ resize(); if (reduce) draw(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function(es){ visible = es[0].isIntersecting; visible ? start() : stop(); }, {threshold: 0.01}).observe(cv);
+    }
+    document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+    if (!reduce && matchMedia('(hover: hover)').matches) {
+      var hd = document.querySelector('header');
+      hd.addEventListener('pointermove', function(e){
+        tx = (e.clientX / innerWidth - 0.5) * 2;
+        ty = (e.clientY / innerHeight - 0.5) * 2;
+      }, {passive:true});
+      hd.addEventListener('pointerleave', function(){ tx = 0; ty = 0; });
+    }
+  }
+
+  /* pointer tilt on project screenshots */
+  if (!reduce && matchMedia('(hover: hover)').matches && !('ontouchstart' in window)) {
+    document.querySelectorAll('.shot').forEach(function(el){
+      el.style.transformStyle = 'preserve-3d';
+      el.addEventListener('pointermove', function(e){
+        var r = el.getBoundingClientRect();
+        var dx = (e.clientX - r.left) / r.width - 0.5;
+        var dy = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transition = 'transform .08s linear';
+        el.style.transform = 'perspective(900px) rotateX(' + (-dy * 4).toFixed(2) + 'deg) rotateY(' + (dx * 4).toFixed(2) + 'deg) translateZ(0)';
+      }, {passive:true});
+      el.addEventListener('pointerleave', function(){
+        el.style.transition = 'transform .5s cubic-bezier(.22,1,.36,1)';
+        el.style.transform = 'none';
+      });
+    });
+  }
+})();
 </script>
 </body>
 </html>
